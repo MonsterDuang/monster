@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=referrer content=never><title>mozik</title><script src=./static/reset.js></script><script src=./static/myQuery.js></script><link href=./static/animate.css rel=stylesheet><link href=./static/iconfont.css rel=stylesheet><style>*{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box
+      }
+      html,body{
+        width: 100%;
+        height: 100%;
+        overflow: hidden
+      }
+      ul, ol, li {
+        list-style: none
+      }</style><link href=./static/css/app.990cab325078096873a5ee43ddde8732.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=./static/js/manifest.378b413e6bdf1190da92.js></script><script type=text/javascript src=./static/js/vendor.1319452b34c2ab20bf5b.js></script><script type=text/javascript src=./static/js/app.72f14fd28d636b006002.js></script></body><script>/**
+     * 长按事件
+     * 首页长按 底部出现 切换背景的tab
+     * */ 
+    let masked = document.querySelector('.masked')
+    let masked2 = document.querySelector('.masked2')
+    let changeBg = document.querySelector('.changeBg')
+    let bgList = document.querySelector('.bgList')
+    // 获取 changeBg 的样式表
+    let sty = changeBg.currentStyle || window.getComputedStyle(changeBg, null)
+    // 获取 bgList 的样式表
+    let bgSty = bgList.currentStyle || window.getComputedStyle(bgList, null)
+    // 获取可视窗口的实际高度 宽度
+    let h = document.documentElement.clientHeight
+    // show tab
+    $('.Home').longTag(function () {
+      console.log(999)
+      masked.style.display = 'block'
+      let timer = setInterval(show, 10)
+      const i = 1.9
+      function show () {
+        changeBg.style.bottom = parseInt(sty.bottom) + i + 'px'
+        if (parseInt(sty.bottom) === 0) {
+          clearInterval(timer)
+        }
+      }
+    })
+    // hide tab
+    $('.masked').tap(function () {
+      masked.style.display = 'none'
+      let timer = setInterval(hide, 10)
+      const j = -1.9
+      function hide () {
+        changeBg.style.bottom = parseInt(sty.bottom) + j + 'px'
+        if (parseInt(sty.bottom) <= -0.1 * h) {
+          clearInterval(timer)
+        }
+      }
+    })
+    // show all background image list
+    $('.btn-bg').tap(function () {
+      masked2.style.display = 'block'
+      let timer = setInterval(show, 10)
+      const k = 1.9
+      function show () {
+        bgList.style.bottom = parseInt(bgSty.bottom) + k + 'px'
+        if (parseInt(bgSty.bottom) === 0) {
+          clearInterval(timer)
+        }
+      }
+    })
+    // hide all background image list
+    $('.masked2').tap(function () {
+      masked2.style.display = 'none'
+      let timer = setInterval(hide, 10)
+      const n = -1.9
+      function hide () {
+        bgList.style.bottom = parseInt(bgSty.bottom) + n + 'px'
+        if (parseInt(bgSty.bottom) <= -0.15 * h) {
+          clearInterval(timer)
+        }
+      }
+    })</script></html>
