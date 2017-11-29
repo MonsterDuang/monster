@@ -71,11 +71,18 @@ export default {
   },
   LOGOUT (state) {
     state.userInfo = {}
+    if (state.nowPlayList === 6) {
+      state.nowPlay = {}
+      state.isPlaying = false
+      state.nowPlayList = 0
+    }
   },
   CHANGE_NOW_PLAY_LIST (state) {
     state.nowPlayList = 6 // collection
-    state.SongUrl = state.collection
-    state.nowPlay = state.SongUrl[state.nowPlayId]
+    if (state.collection.length !== 0) {
+      state.SongUrl = state.collection
+      state.nowPlay = state.SongUrl[state.nowPlayId]
+    }
   },
   CHANGE_NEIGHT (state) {
     state.Neight = state.Neight === '夜间' ? '白天' : '夜间'

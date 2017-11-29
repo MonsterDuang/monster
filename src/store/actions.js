@@ -1,107 +1,33 @@
 import http from 'axios'
 import api from '@/api'
 export default {
-  // 获取 新歌榜
-  getNewSong ({commit}) {
-    let url = api.host + 'billboard.billList&type=1&size=50&offset=0'
-    return http.get(url).then(res => {
-      commit('SAVE_SONG_ID', res.data.song_list)
+  // 获取歌曲信息
+  getSong (store, data) {
+    return http.get(data.url).then(res => {
+      store.state.nowPlayList = data.play_list
+      store.commit('SAVE_SONG_ID', res.data.song_list)
     })
   },
-  getNewSongUrl (store) {
+  // 获取歌曲的播放地址
+  getSongUrl (store) {
     let result = []
     for (let i in store.state.SongId) {
       let songId = store.state.SongId[i]
-      let url = api.host + 'song.play&songid=' + songId
+      let url = api.song_id + 'song.play&songid=' + songId
       http.get(url).then(res => {
         result.push(res.data)
-        store.state.nowPlayList = 1
         store.commit('SAVE_SONG_MSG', result)
       })
     }
   },
-  // 获取 热歌榜
-  getHotSong ({commit}) {
-    let url = api.host + 'billboard.billList&type=2&size=50&offset=0'
-    return http.get(url).then(res => {
-      commit('SAVE_SONG_ID', res.data.song_list)
-    })
-  },
-  getHotSongUrl (store) {
-    let result = []
-    for (let i in store.state.SongId) {
-      let songId = store.state.SongId[i]
-      let url = api.host + 'song.play&songid=' + songId
-      http.get(url).then(res => {
-        result.push(res.data)
-        store.state.nowPlayList = 2
-        store.commit('SAVE_SONG_MSG', result)
-      })
-    }
-  },
-  // 获取 欧美金曲
-  getEusSong ({commit}) {
-    let url = api.host + 'billboard.billList&type=21&size=50&offset=0'
-    return http.get(url).then(res => {
-      commit('SAVE_SONG_ID', res.data.song_list)
-    })
-  },
-  getEusSongUrl (store) {
-    let result = []
-    for (let i in store.state.SongId) {
-      let songId = store.state.SongId[i]
-      let url = api.host + 'song.play&songid=' + songId
-      http.get(url).then(res => {
-        result.push(res.data)
-        store.state.nowPlayList = 3
-        store.commit('SAVE_SONG_MSG', result)
-      })
-    }
-  },
-  // 获取 经典老歌
-  getOldSong ({commit}) {
-    let url = api.host + 'billboard.billList&type=22&size=50&offset=0'
-    return http.get(url).then(res => {
-      commit('SAVE_SONG_ID', res.data.song_list)
-    })
-  },
-  getOldSongUrl (store) {
-    let result = []
-    for (let i in store.state.SongId) {
-      let songId = store.state.SongId[i]
-      let url = api.host + 'song.play&songid=' + songId
-      http.get(url).then(res => {
-        result.push(res.data)
-        store.state.nowPlayList = 4
-        store.commit('SAVE_SONG_MSG', result)
-      })
-    }
-  },
-  // 获取 摇滚金曲
-  getRockSong ({commit}) {
-    let url = api.host + 'billboard.billList&type=11&size=50&offset=0'
-    return http.get(url).then(res => {
-      commit('SAVE_SONG_ID', res.data.song_list)
-    })
-  },
-  getRockSongUrl (store) {
-    let result = []
-    for (let i in store.state.SongId) {
-      let songId = store.state.SongId[i]
-      let url = api.host + 'song.play&songid=' + songId
-      http.get(url).then(res => {
-        result.push(res.data)
-        store.state.nowPlayList = 5
-        store.commit('SAVE_SONG_MSG', result)
-      })
-    }
-  },
+  // 点个小红心
   getToLike (store, data) {
     let url = api.db + 'usercollection'
     return http.post(url, data).then(res => {
       store.commit('GET_TO_LIKE', res.data)
     })
   },
+  // 移除小红心系列
   removeFromLike (store, data) {
     let url = api.db + 'user/' + store.state.userInfo.id + '?_embed=usercollection'
     return http.get(url).then(res => {
@@ -117,12 +43,15 @@ export default {
       }
     })
   },
+  // 切换背景
   changeBg ({commit}, img) {
     commit('CHANGE_IMG', img)
   },
+  // 下一首
   changeNextSong ({commit}) {
     commit('CHANGE_NEXT_SONG')
   },
+  // 上一首
   changeBeforeSong ({commit}) {
     commit('CHANGE_BEFORE_SONG')
   },

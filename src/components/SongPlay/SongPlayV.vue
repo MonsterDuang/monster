@@ -20,12 +20,14 @@
   </v-touch>
 </template>
 <script>
+import api from '@/api'
 export default {
   created () {
     if (this.nowPlayList !== 5) {
-      this.$store.dispatch('getRockSong')
+      let data = {url: api.rock_song, play_list: 5}
+      this.$store.dispatch('getSong', data)
         .then(res => {
-          this.$store.dispatch('getRockSongUrl')
+          this.$store.dispatch('getSongUrl')
         })
     }
   },
