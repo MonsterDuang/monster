@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import axios from 'axios'
-import { Swipe, SwipeItem, MessageBox } from 'mint-ui'
+import { TabContainer, TabContainerItem, MessageBox } from 'mint-ui'
 // import Circle from 'iview/src/components/circle/circle.vue'
 // import Icon from 'iview/src/components/icon/icon.vue'
 import iView from 'iview'
@@ -13,8 +13,8 @@ import 'mint-ui/lib/style.css'
 import 'iview/dist/styles/iview.css'
 var VueTouch = require('vue-touch')
 Vue.use(VueTouch, {name: 'v-touch'})
-Vue.component(Swipe.name, Swipe)
-Vue.component(SwipeItem.name, SwipeItem)
+Vue.component(TabContainer.name, TabContainer)
+Vue.component(TabContainerItem.name, TabContainerItem)
 Vue.prototype.$msg = MessageBox
 // Vue.component('i-circle', Circle)
 // Vue.component(Icon.name, Icon)

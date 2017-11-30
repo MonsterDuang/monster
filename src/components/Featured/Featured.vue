@@ -1,26 +1,37 @@
 <template>
   <div class="Featured">
     <div class="tab-bar">
-      <span class="link-a" @click="Index=0">
-      <img src="../../assets/images/star_history.png" v-show="Index!=0" alt="">
-      <img src="../../assets/images/star_history2.png" v-show="Index==0" alt="">
+      <span class="link-a" @click="active='tab-container1'">
+      <img src="../../assets/images/star_history.png" v-show="active!='tab-container1'" alt="">
+      <img src="../../assets/images/star_history2.png" v-show="active=='tab-container1'" alt="">
       </span>
-      <span class="link-a" @click="Index=1">
-        <img src="../../assets/images/star_home.png" v-show="Index==1" alt="">
-        <img src="../../assets/images/star_home2.png" v-show="Index!=1" alt="">
+      <span class="link-a" @click="active='tab-container2'">
+        <img src="../../assets/images/star_home.png" v-show="active=='tab-container2'" alt="">
+        <img src="../../assets/images/star_home2.png" v-show="active!='tab-container2'" alt="">
         </span>
-      <span class="link-a" @click="Index=2">
-        <img src="../../assets/images/star_gift.png" v-show="Index!=2" alt="">
-        <img src="../../assets/images/star_gift2.png" v-show="Index==2" alt="">
+      <span class="link-a" @click="active='tab-container3'">
+        <img src="../../assets/images/star_gift.png" v-show="active!='tab-container3'" alt="">
+        <img src="../../assets/images/star_gift2.png" v-show="active=='tab-container3'" alt="">
         </span>
     </div>
-    <div class="view">
-       <mt-swipe :auto='0' :continuous='false' :defaultIndex='Index' :showIndicators='false' @change="handleChange">
+    <!-- <div class="view"> -->
+       <!-- <mt-swipe :auto='0' :continuous='false' :defaultIndex='Index' :showIndicators='false' @change="handleChange">
         <mt-swipe-item><Songlist></Songlist></mt-swipe-item>
         <mt-swipe-item><articl></articl></mt-swipe-item>
         <mt-swipe-item><gift></gift></mt-swipe-item>
-      </mt-swipe> 
-    </div>
+      </mt-swipe> -->
+      <mt-tab-container v-model="active" class="view" swipeable>
+        <mt-tab-container-item id="tab-container1">
+          <Songlist></Songlist>
+        </mt-tab-container-item>
+        <mt-tab-container-item id="tab-container2">
+          <articl></articl>
+        </mt-tab-container-item>
+        <mt-tab-container-item id="tab-container3">
+          <gift></gift>
+        </mt-tab-container-item>
+      </mt-tab-container>
+    <!-- </div> -->
   </div>
 </template>
 <script>
@@ -40,7 +51,7 @@ export default {
   },
   data () {
     return {
-      Index: 1
+      active: 'tab-container2'
     }
   },
   methods: {
@@ -78,7 +89,7 @@ export default {
   width: 100%;
   height: 100%;
 }
-.mint-swipe{
+.mint-tab-container-wrap{
   width: 100%;
   height: 100%;
 }
