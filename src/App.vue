@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition name="animated">
-      <router-view/>
+        <router-view/>
     </transition>
     <audio :src="nowPlay.bitrate.show_link" ref="audio" @ended="audioEnd" @timeupdate='update' autoplay></audio>
     <div :class="{neight:isNeight}"></div>

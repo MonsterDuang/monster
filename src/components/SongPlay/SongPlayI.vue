@@ -80,6 +80,7 @@ export default {
       }
     },
     onPan (value) {
+      console.log(value)
       if (value.additionalEvent === 'panleft' && value.isFinal === true) {
         this.$store.dispatch('changeNextSong')
       } else if (value.additionalEvent === 'panright' && value.isFinal === true) {
