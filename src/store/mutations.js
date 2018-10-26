@@ -1,3 +1,6 @@
+import http from 'axios'
+import api from '@/api'
+import util from '@/util'
 export default {
   // 存储歌曲id
   SAVE_SONG_ID (state, data) {
@@ -13,6 +16,26 @@ export default {
   SAVE_SONG_MSG (state, data) {
     state.SongUrl = data
     state.nowPlay = state.SongUrl[state.nowPlayId]
+  },
+  // 存储歌曲lrc
+  SAVE_SONG_LRC (state) {
+    state.nowPlayLrc = []
+    state.noLrc = false
+    let songId = state.nowPlay.songinfo.song_id
+    let lrcUrl = api.song_id + 'song.lry&songid=' + songId
+    http.get(lrcUrl).then(res => {
+      if (res.data.error_code) {
+        state.noLrc = true
+      } else {
+        let lrc = res.data.lrcContent
+        lrc = lrc.split(/\n/)
+        for (let i in lrc) {
+          let str = lrc[i]
+          let reg = /\[(.+)\](.+)?/
+          state.nowPlayLrc.push(str.match(reg))
+        }
+      }
+    })
   },
   CHANGE_NEXT_SONG (state) {
     state.nowPlayId += 1
@@ -30,6 +53,26 @@ export default {
   },
   CHANGE_PERCENT (state, percent) {
     state.percent = percent
+  },
+  CHANGE_LRC (state, nowTime) {
+    /* eslint-disable */
+    state.nowPlayLrc.map(val => {
+      if (val[1].slice(0, 5) == util.sec_to_time(nowTime).slice(3, 8)) {
+        val.push('color: #a86a27; font-size: 15px')
+        let lrcScroll = document.getElementById('lrc_scroll')
+        let lrcContainerTop = document.getElementsByClassName('lrc')[0].getBoundingClientRect().top
+        let lrcContainerHeight = document.getElementsByClassName('lrc')[0].getBoundingClientRect().y
+        let lrcTop = document.getElementById(val[1]).getBoundingClientRect().top
+        if (lrcTop > (lrcContainerTop + lrcContainerHeight / 2)) {
+          lrcScroll.scrollTop += lrcTop - (lrcContainerTop + lrcContainerHeight / 2)
+        }
+        /* eslint-disable */
+      } else if (val[1].slice(0, 5) < util.sec_to_time(nowTime).slice(3, 8)) {
+        if (val[3] != '') {
+          val[3] = 'color: rgba(213, 132, 42, 0.4); font-size: 14px'
+        }
+      }
+    })
   },
   GET_TO_LIKE (state, data) {
     state.collection.push(data)

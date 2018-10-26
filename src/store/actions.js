@@ -17,6 +17,11 @@ export default {
       http.get(url).then(res => {
         result.push(res.data)
         store.commit('SAVE_SONG_MSG', result)
+      }).then(res => {
+        /* eslint-disable */
+        if (i == store.state.SongId.length - 1) {
+        store.commit('SAVE_SONG_LRC')
+        }
       })
     }
   },
@@ -50,10 +55,18 @@ export default {
   // 下一首
   changeNextSong ({commit}) {
     commit('CHANGE_NEXT_SONG')
+    commit('SAVE_SONG_LRC')
   },
   // 上一首
   changeBeforeSong ({commit}) {
     commit('CHANGE_BEFORE_SONG')
+    commit('SAVE_SONG_LRC')
+  },
+  changePercent ({commit}, percent) {
+    commit('CHANGE_PERCENT', percent)
+  },
+  changeLrc ({commit}, nowTime) {
+    commit('CHANGE_LRC', nowTime)
   },
   likeSong ({commit}, index) {
     commit('LIKE_SONG', index)

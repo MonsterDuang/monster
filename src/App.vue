@@ -26,6 +26,9 @@ export default {
     },
     isNeight () {
       return this.$store.state.isNeight
+    },
+    nowPlayLrc () {
+      return this.$store.state.nowPlayLrc
     }
   },
   methods: {
@@ -33,8 +36,10 @@ export default {
       this.$store.dispatch('changeNextSong')
     },
     update (data) {
-      let percent = (data.target.currentTime / data.target.duration) * 100
-      this.$store.commit('CHANGE_PERCENT', percent)
+      let nowTime = data.target.currentTime
+      let percent = (nowTime / data.target.duration) * 100
+      this.$store.dispatch('changePercent', percent)
+      this.$store.dispatch('changeLrc', nowTime)
     }
   },
   watch: {

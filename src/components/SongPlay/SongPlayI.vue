@@ -13,6 +13,12 @@
         <span class="singer">{{nowPlay.songinfo.author}}</span>
       </div>
     </div>
+    <div class="lrc">
+      <div class="lrc_scroll" id="lrc_scroll">
+        <div v-if='!noLrc' v-for="(item, index) in nowPlayLrc" :key="index" :style="item[3]" :id="item[1]">{{item[2]}}</div>
+        <div v-if='noLrc' class="nolrc">暂无歌词~~~~~</div>
+      </div>
+    </div>
     <div class="bottom-btn">
       <span @click="getToLike">
         <i class="iconfont icon-heart" v-show="nowPlay.songinfo.charge==0"></i>
@@ -53,6 +59,12 @@ export default {
     },
     nowPlayList () {
       return this.$store.state.nowPlayList
+    },
+    nowPlayLrc () {
+      return this.$store.state.nowPlayLrc
+    },
+    noLrc () {
+      return this.$store.state.noLrc
     }
   },
   methods: {
@@ -80,7 +92,6 @@ export default {
       }
     },
     onPan (value) {
-      console.log(value)
       if (value.additionalEvent === 'panleft' && value.isFinal === true) {
         this.$store.dispatch('changeNextSong')
       } else if (value.additionalEvent === 'panright' && value.isFinal === true) {
@@ -95,13 +106,13 @@ export default {
 .Song{
   width: 100%;
   height: 100%;
-  padding-top: 10%;
   background: rgba(213, 132, 42, 0.1);
   color: rgba(213, 132, 42, 0.5);
 }
 .play{
   width: 100%;
   height: 40%;
+  padding-top: 10%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -127,6 +138,18 @@ export default {
 }
 .singer{
   font-size: .9rem
+}
+.lrc{
+  width: 100%;;
+  height: 50%;
+  text-align: center;
+  margin-top: 15px;
+}
+.lrc_scroll{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-size: 14px;
 }
 .bottom-btn{
   width: 100%;
