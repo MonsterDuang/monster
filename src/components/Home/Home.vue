@@ -5,11 +5,11 @@
     </div>
     <img :src="nowBackgroundUrl" v-show="nowBackgroundUrl!=''" alt="">
     <div class="right-btn">
-      <router-link to="/songplayI" class="right-btn-link"><img src="../../assets/images/11.png" alt="" :class="{'animated fadeOut infinite':this.nowPlayList===1}"></router-link>
-      <router-link to="/songplayII" class="right-btn-link"><img src="../../assets/images/21.png" alt="" :class="{'animated fadeOut infinite':this.nowPlayList===2}"></router-link>
-      <router-link to="/songplayIII" class="right-btn-link"><img src="../../assets/images/31.png" alt="" :class="{'animated fadeOut infinite':this.nowPlayList===3}"></router-link>
-      <router-link to="/songplayIV" class="right-btn-link"><img src="../../assets/images/41.png" alt="" :class="{'animated fadeOut infinite':this.nowPlayList===4}"></router-link>
-      <router-link to="/songplayV" class="right-btn-link"><img src="../../assets/images/51.png" alt="" :class="{'animated fadeOut infinite':this.nowPlayList===5}"></router-link>
+      <router-link :to="{path: '/songplay', query: {play_list: 1}}" class="right-btn-link"><img src="../../assets/images/11.png" alt="" :class="{'animated fadeOut infinite':this.nowPlayList===1}"></router-link>
+      <router-link :to="{path: '/songplay', query: {play_list: 2}}" class="right-btn-link"><img src="../../assets/images/21.png" alt="" :class="{'animated fadeOut infinite':this.nowPlayList===2}"></router-link>
+      <router-link :to="{path: '/songplay', query: {play_list: 3}}" class="right-btn-link"><img src="../../assets/images/31.png" alt="" :class="{'animated fadeOut infinite':this.nowPlayList===3}"></router-link>
+      <router-link :to="{path: '/songplay', query: {play_list: 4}}" class="right-btn-link"><img src="../../assets/images/41.png" alt="" :class="{'animated fadeOut infinite':this.nowPlayList===4}"></router-link>
+      <router-link :to="{path: '/songplay', query: {play_list: 5}}" class="right-btn-link"><img src="../../assets/images/51.png" alt="" :class="{'animated fadeOut infinite':this.nowPlayList===5}"></router-link>
       <router-link to="/featured" class="right-btn-link"><img src="../../assets/images/61.png" alt=""></router-link>
     </div>
     <div class="bottom-btn">

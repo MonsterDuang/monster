@@ -39,7 +39,9 @@ export default {
       let nowTime = data.target.currentTime
       let percent = (nowTime / data.target.duration) * 100
       this.$store.dispatch('changePercent', percent)
-      this.$store.dispatch('changeLrc', nowTime)
+      if (this.$route.path === '/songplay') {
+        this.$store.dispatch('changeLrc', nowTime)
+      }
     }
   },
   watch: {

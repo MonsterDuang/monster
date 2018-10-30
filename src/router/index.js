@@ -7,11 +7,7 @@ import Login from '@/components/User/Login'
 import Setting from '@/components/User/Setting'
 import Readme from '@/components/User/Readme'
 import Info from '@/components/User/Info'
-import SongPlayI from '@/components/SongPlay/SongPlayI'
-import SongPlayII from '@/components/SongPlay/SongPlayII'
-import SongPlayIII from '@/components/SongPlay/SongPlayIII'
-import SongPlayIV from '@/components/SongPlay/SongPlayIV'
-import SongPlayV from '@/components/SongPlay/SongPlayV'
+import SongPlay from '@/components/SongPlay/SongPlay'
 import Featured from '@/components/Featured/Featured'
 import Like from '@/components/Like/Like'
 import LikeSongPlay from '@/components/Like/LikeSongPlay'
@@ -43,20 +39,8 @@ export default new Router({
     path: '/info',
     component: Info
   }, {
-    path: '/songplayI',
-    component: SongPlayI
-  }, {
-    path: '/songplayII',
-    component: SongPlayII
-  }, {
-    path: '/songplayIII',
-    component: SongPlayIII
-  }, {
-    path: '/songplayIV',
-    component: SongPlayIV
-  }, {
-    path: '/songplayV',
-    component: SongPlayV
+    path: '/songplay',
+    component: SongPlay
   }, {
     path: '/featured',
     component: Featured

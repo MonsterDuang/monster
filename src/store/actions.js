@@ -20,7 +20,7 @@ export default {
       }).then(res => {
         /* eslint-disable */
         if (i == store.state.SongId.length - 1) {
-        store.commit('SAVE_SONG_LRC')
+          store.commit('SAVE_SONG_LRC')
         }
       })
     }

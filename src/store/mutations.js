@@ -28,11 +28,20 @@ export default {
         state.noLrc = true
       } else {
         let lrc = res.data.lrcContent
-        lrc = lrc.split(/\n/)
-        for (let i in lrc) {
-          let str = lrc[i]
-          let reg = /\[(.+)\](.+)?/
-          state.nowPlayLrc.push(str.match(reg))
+        if (lrc.indexOf('[') > -1) {
+          lrc = lrc.split(/\n/)
+          for (let i in lrc) {
+            let str = lrc[i]
+            let reg = /\[(.+)\](.+)?/
+            if (str.match(reg)[2] !== undefined) {
+              state.nowPlayLrc.push(str.match(reg))
+            }
+          }
+        } else {
+          let Lrc = lrc.split()
+          Lrc.unshift('')
+          Lrc.unshift('')
+          state.nowPlayLrc[0] = Lrc
         }
       }
     })
@@ -56,9 +65,32 @@ export default {
   },
   CHANGE_LRC (state, nowTime) {
     /* eslint-disable */
-    state.nowPlayLrc.map(val => {
-      if (val[1].slice(0, 5) == util.sec_to_time(nowTime).slice(3, 8)) {
-        val.push('color: #a86a27; font-size: 15px')
+    let heightLight = '', afterColor = ''
+    switch (state.nowPlayList) {
+      case 1:
+        heightLight = 'rgba(213, 132, 42, 0.9)'
+        afterColor = 'rgba(213, 132, 42, 0.3)'
+        break
+      case 2:
+        heightLight = 'rgba(23, 173, 75, 0.9)'
+        afterColor = 'rgba(23, 173, 75, 0.3)'
+        break
+      case 3:
+        heightLight = 'rgba(45, 32, 142, 0.9)'
+        afterColor = 'rgba(45, 32, 142, 0.3)'
+        break
+      case 4:
+        heightLight = 'rgba(200, 10, 242, 0.9)'
+        afterColor = 'rgba(200, 10, 242, 0.3)'
+        break
+      case 5:
+        heightLight = 'rgba(200, 12, 42, 0.9)'
+        afterColor = 'rgba(200, 12, 42, 0.3)'
+        break
+    }
+    state.nowPlayLrc.map((val, index) => {
+      if (val[1].slice(0, 5) == util.sec_to_time(nowTime).slice(3, 8) && state.nowPlayLrc.length > 1) {
+        val.push('color: ' + heightLight)
         let lrcScroll = document.getElementById('lrc_scroll')
         let lrcContainerTop = document.getElementsByClassName('lrc')[0].getBoundingClientRect().top
         let lrcContainerHeight = document.getElementsByClassName('lrc')[0].getBoundingClientRect().y
@@ -66,12 +98,12 @@ export default {
         if (lrcTop > (lrcContainerTop + lrcContainerHeight / 2)) {
           lrcScroll.scrollTop += lrcTop - (lrcContainerTop + lrcContainerHeight / 2)
         }
-        /* eslint-disable */
-      } else if (val[1].slice(0, 5) < util.sec_to_time(nowTime).slice(3, 8)) {
-        if (val[3] != '') {
-          val[3] = 'color: rgba(213, 132, 42, 0.4); font-size: 14px'
+        if (index != 0) {
+          if (state.nowPlayLrc[index - 1][3] != '') {
+            state.nowPlayLrc[index - 1][3] = 'color: ' + afterColor
+          }
         }
-      }
+      } 
     })
   },
   GET_TO_LIKE (state, data) {
