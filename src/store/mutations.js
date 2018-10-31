@@ -22,7 +22,7 @@ export default {
     state.nowPlayLrc = []
     state.noLrc = false
     let songId = state.nowPlay.songinfo.song_id
-    let lrcUrl = api.song_id + 'song.lry&songid=' + songId
+    let lrcUrl = api.song_id + 'lry&songid=' + songId
     http.get(lrcUrl).then(res => {
       if (res.data.error_code) {
         state.noLrc = true

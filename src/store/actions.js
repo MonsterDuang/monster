@@ -13,7 +13,7 @@ export default {
     let result = []
     for (let i in store.state.SongId) {
       let songId = store.state.SongId[i]
-      let url = api.song_id + 'song.play&songid=' + songId
+      let url = api.song_id + 'play&songid=' + songId
       http.get(url).then(res => {
         result.push(res.data)
         store.commit('SAVE_SONG_MSG', result)
