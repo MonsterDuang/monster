@@ -33,8 +33,10 @@ export default {
           for (let i in lrc) {
             let str = lrc[i]
             let reg = /\[(.+)\](.+)?/
-            if (str.match(reg)[2] !== undefined) {
-              state.nowPlayLrc.push(str.match(reg))
+            if (str.match(reg) !== null) {
+              if (str.match(reg)[2] !== undefined) {
+                state.nowPlayLrc.push(str.match(reg))
+              }
             }
           }
         } else {
