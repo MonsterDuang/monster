@@ -1,4 +1,4 @@
-# mozik
+# Monster
 
 > A Vue.js project
 
